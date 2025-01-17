@@ -21,4 +21,4 @@ Use this as a starting point to complete the WDD 330 team activity: the SleepOut
 
 ## Website information
 
-- [Site]()
+- [Site](https://sleepoutsideteam8.netlify.app/)
