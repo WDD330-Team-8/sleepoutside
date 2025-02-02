@@ -11,7 +11,8 @@ export default async function productDetails(productId){
 }
 
 function addToCart() {
-    setLocalStorage("so-cart", product);
+    let productKey = product.Id
+    setLocalStorage(productKey, product);
 }
 
 function renderProductDetails() {
