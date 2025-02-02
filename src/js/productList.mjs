@@ -7,7 +7,7 @@ export default async function productList(category, selector) {
     let data = await getData(category);
     data = data.filter(product => approvedProducts.includes(product.Id));
     const el = document.querySelector(selector);
-    console.log(data.length);
+    // console.log(data.length);
     renderListWithTemplate(el, data, productCardTemplate);
 }
 
