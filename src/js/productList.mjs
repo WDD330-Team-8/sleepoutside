@@ -1,7 +1,7 @@
 import { getData } from './productData.mjs';
 import { renderListWithTemplate } from './utils.mjs';
 
-const approvedProducts = ["880RR", "985RF", "989CG", "344YJ"];
+const approvedProducts = ["880RR", "985RF", "985PR", "344YJ"];
 
 export default async function productList(category, selector) {
     let data = await getData(category);
