@@ -2,8 +2,13 @@ import {getLocalStorage, renderListWithTemplate } from './utils.mjs';
 
 export default function shoppingCart() {
     const cartItems = getLocalStorage('so-cart');
-    const outputE1 = document.querySelector('.product-list')
-    renderListWithTemplate(outputE1, cartItems, cartItemTemplate);
+    const outputE1 = document.querySelector('.product-list');
+    if (!cartItems) {
+        emptyCartMessage(outputE1);
+    } else {
+        renderListWithTemplate(outputE1, cartItems, cartItemTemplate);
+    }
+    
 }
 
 function cartItemTemplate(item) {
@@ -20,4 +25,9 @@ function cartItemTemplate(item) {
     </li>`;
 
     return newItem;
+}
+
+function emptyCartMessage(parentElement){
+    const emptyCartNotice = `<p>Your cart is empty.</p>`;
+    parentElement.insertAdjacentHTML('afterbegin', emptyCartNotice);
 }
