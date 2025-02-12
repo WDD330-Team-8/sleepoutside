@@ -1,5 +1,5 @@
 import { findProductById } from "./productData.mjs";
-import { setLocalStorage, getLocalStorage } from "./utils.mjs";
+import { setLocalStorage, getLocalStorage, loadHeaderFooter } from "./utils.mjs";
 
 let product = {}; 
 
@@ -8,10 +8,16 @@ export default async function productDetails(productId){
     product = await findProductById(productId);
     renderProductDetails();
     document.getElementById("addToCart").addEventListener("click", addToCart);
+    
+    // update and focus on cart amount when adding to cart
+    document.getElementById("addToCart").addEventListener("click", async () => { 
+      await loadHeaderFooter(); // loading header updates cart amount
+      document.getElementById("cart-count").focus();
+    });
 }
 
 function addToCart() {
-    let cartContents = getLocalStorage('so-cart');
+    let cartContents = getLocalStorage("so-cart");
     if (!cartContents) {
       cartContents = [];
     }

@@ -1,3 +1,5 @@
+import { doc } from "prettier";
+
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -78,6 +80,24 @@ export async function loadHeaderFooter() {
   const footerTemplateFn = loadTemplate('/partials/footer.html');
   const headerE1 = document.querySelector('#main-header');
   const footerE1 = document.querySelector('#main-footer');
-  renderWithTemplate(headerTemplateFn, headerE1);
-  renderWithTemplate(footerTemplateFn, footerE1);
+  await renderWithTemplate(headerTemplateFn, headerE1);
+  await renderWithTemplate(footerTemplateFn, footerE1);
+  cartSuperscript(); // render cart count
+}
+
+async function cartSuperscript() {
+  const cartItems = await getLocalStorage("so-cart");
+  const cartE1 = document.querySelector(".cart");
+  let countEl = document.createElement("p");
+  countEl.id = ("cart-count");
+
+  if (cartItems == null) {
+    countEl.style.display = "none";
+  } else {
+    countEl.textContent = cartItems.length;
+  }
+  
+  countEl.tabIndex = 0;
+
+  cartE1.prepend(countEl);
 }
