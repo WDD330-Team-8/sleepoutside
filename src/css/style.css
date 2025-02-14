@@ -148,6 +148,29 @@ button {
   text-decoration: none;
   color: var(--dark-grey);
 }
+.products-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  width: 75%;
+  margin: 0 auto;
+}
+
+.products-card {
+  text-decoration: none;
+  color: var(--dark-grey);
+  flex: 1 1 45%;
+  margin: 0.25em;
+  padding: 0.5em;
+  max-width: 250px;
+  text-align: center;
+  font-size: small;
+
+  img {
+    max-width: 150px;
+    margin: auto;
+  }
+}
 /* Styles for product lists */
 .product-card {
   flex: 1 1 45%;
