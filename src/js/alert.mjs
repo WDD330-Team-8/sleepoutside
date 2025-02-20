@@ -2,10 +2,10 @@ import { getData } from "./productData.mjs";
 
 // Creates and displays alerts if they exist
 export default async function homeAlerts() {
-    let alerts = await getData("alerts"); // Gets JSON data from alerts.json
+    let alerts = fetch("../json/alerts.json") // Gets JSON data from alerts.json
     
     if (window.location.href == "http://localhost") { // If on localhost (for testing)
-        alerts = await getData("alerts-test"); // Check out alerts-test.json for an example.
+        alerts = fetch("../json/alerts-test.json"); // Check out alerts-test.json for an example.
     };
 
     alerts = alerts.alerts; // Pulls out the array of alerts
