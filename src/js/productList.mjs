@@ -1,14 +1,13 @@
 import { getData } from './productData.mjs';
 import { renderListWithTemplate } from './utils.mjs';
 
-const approvedProducts = ["880RR", "985RF", "985PR", "344YJ"];
 
 export default async function productList(category, selector) {
     let data = await getData(category);
-    data = data.filter(product => approvedProducts.includes(product.Id));
     const el = document.querySelector(selector);
     // console.log(data.length);
     renderListWithTemplate(el, data, productCardTemplate);
+    document.querySelector(".title").innerHTML = category.charAt(0).toUpperCase() + category.slice(1);
 }
 
 
@@ -19,9 +18,9 @@ function productCardTemplate (product) {
 
     return `
     <li class="product-card">
-    <a href="product_pages/index.html?product=${product.Id}">
+    <a href="/product_pages/index.html?product=${product.Id}">
       <img
-        src="${product.Image}"
+        src="${product.Images.PrimaryMedium}"
         alt="${product.Name}"
       />
       <h3 class="card__brand">${product.Brand.Name}</h3>
