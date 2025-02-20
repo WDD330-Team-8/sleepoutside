@@ -1,14 +1,14 @@
-import { getData } from "./productData.mjs";
-
 // Creates and displays alerts if they exist
 export default async function homeAlerts() {
-    let alerts = fetch("../json/alerts.json") // Gets JSON data from alerts.json
-    
-    if (window.location.href == "http://localhost") { // If on localhost (for testing)
-        alerts = fetch("../json/alerts-test.json"); // Check out alerts-test.json for an example.
-    };
+    let alerts;
 
-    alerts = alerts.alerts; // Pulls out the array of alerts
+    if (window.location.href.startsWith("http://localhost")) { // If on localhost (for testing)
+        alerts = await fetch("../json/alerts-test.json").then(res => res.json()); // Check out alerts-test.json for an example.
+    } else {
+        alerts = await fetch("../json/alerts.json").then(res => res.json()); // Gets JSON data from alerts.json
+    }
+
+    alerts = alerts.alerts;
 
     if (alerts.length > 0) { // If there are alerts, display them
         const main = document.querySelector("main");
