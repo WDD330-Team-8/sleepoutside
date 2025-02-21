@@ -81,7 +81,7 @@ header {
   color: var(--tertiary-color);
 }
 
-button {
+button, a.button {
   padding: 0.5em 2em;
   background-color: var(--secondary-color);
   color: white;
@@ -165,11 +165,10 @@ button {
   max-width: 250px;
   text-align: center;
   font-size: small;
-
-  img {
+}
+.product-card img {
     max-width: 150px;
     margin: auto;
-  }
 }
 /* Styles for product lists */
 .product-card {
@@ -239,6 +238,43 @@ button {
   grid-row: 2;
   grid-column: 3;
 }
+
+/* End cart list card styles */
+/* Start checkout */
+.checkoutForm {
+  border: 1px solid var(--light-grey);
+  padding: 1em;
+  margin: 0.5em auto;
+  border-radius: 5px;
+  max-width: 500px;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.checkoutForm input {
+  font-size: var(--large-font);
+}
+
+#orderSummary {
+  padding: 0;
+}
+
+#orderSummary ul {
+  list-style-type: none;
+}
+
+#orderSummary li {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5em 0;
+}
+
+label#total {
+  font-weight: bold;
+  font-size: var(--large-font);
+}
+
+/* Media queries */
 
 @media screen and (min-width: 500px) {
   body {
