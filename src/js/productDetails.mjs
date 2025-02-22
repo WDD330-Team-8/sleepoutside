@@ -13,7 +13,16 @@ export default async function productDetails(productId){
     document.getElementById("addToCart").addEventListener("click", async () => { 
       await loadHeaderFooter(); // loading header updates cart amount
       document.getElementById("cart-count").focus();
+      animateBackpack();
     });
+}
+
+function animateBackpack(){
+  const cartE1 = document.querySelector(".cart");
+  cartE1.style.transform = "scale(1.3)";
+  setTimeout(() => {
+    cartE1.style.transform = "scale(1)";
+  }, 150);
 }
 
 function addToCart() {

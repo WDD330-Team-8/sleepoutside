@@ -81,7 +81,8 @@ header {
   color: var(--tertiary-color);
 }
 
-button, a.button {
+button,
+a.button {
   padding: 0.5em 2em;
   background-color: var(--secondary-color);
   color: white;
@@ -167,8 +168,8 @@ button, a.button {
   font-size: small;
 }
 .product-card img {
-    max-width: 150px;
-    margin: auto;
+  max-width: 150px;
+  margin: auto;
 }
 /* Styles for product lists */
 .product-card {
