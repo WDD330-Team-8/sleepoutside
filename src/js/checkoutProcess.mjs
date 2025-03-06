@@ -1,4 +1,4 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, alertMessage, removeAllAlerts } from "./utils.mjs";
 import { checkout } from "./externalServices.mjs";
 
 function formDataToJSON(formElement) {
@@ -38,6 +38,7 @@ const checkoutProcess = {
         this.outputSelector = outputSelector;
         this.list = getLocalStorage(key);
         this.calculateItemSummary();
+        this.calculateOrdertotal();
     },
     calculateItemSummary: function () {
         const summaryElement = document.querySelector(
@@ -73,20 +74,56 @@ const checkoutProcess = {
         orderTotal.innerText = "$" + this.orderTotal;
     },
     checkout: async function (form) {
-        const json = formDataToJSON(form);
-        // add totals, and item details
-        json.orderDate = new Date();
-        json.orderTotal = this.orderTotal;
-        json.tax = this.tax;
-        json.shipping = this.shipping;
-        json.items = packageItems(this.list);
-        console.log(json);
+        // const json = formDataToJSON(form);
+        // // add totals, and item details
+        // json.orderDate = new Date().toISOString();
+        // json.orderTotal = this.orderTotal;
+        // json.tax = this.tax;
+        // json.shipping = this.shipping;
+        // json.items = packageItems(this.list);
+        // console.log("order format:");
+        // console.log(json);
+        
+        const formData = formDataToJSON(form);
+
+        // Transform the cart items into the required format
+        const formattedItems = this.list.map(item => ({
+            id: item.id || "Unknown",
+            name: item.name || "Unknown Item",
+            price: parseFloat(item.FinalPrice || 0).toFixed(2), // Ensure price is formatted correctly
+            quantity: item.quantity || 1 // Default quantity to 1 if missing
+        }));
+
+        // Construct the payload
+        const payload = {
+            orderDate: new Date().toISOString(),
+            fname: formData.fname,
+            lname: formData.lname,
+            street: formData.street,
+            city: formData.city,
+            state: formData.state,
+            zip: formData.zip,
+            cardNumber: formData.cardNumber,
+            expiration: formData.expiration,
+            code: formData.code,
+            items: formattedItems,
+            orderTotal: this.orderTotal, // This is already a string
+            shipping: this.shipping, // Keep as number
+            tax: this.tax // This is already formatted correctly
+        };
         try {
-            const res = await checkout(json);
+            const res = await checkout(payload);
             console.log(res);
+            setLocalStorage("so-cart", []);
+            location.assign("/checkout/success.html")
         } catch (err) {
+            removeAllAlerts();
+            for (let message in err.message) {
+                alertMessage(err.message[message]);
+            }
+
             console.log(err);
-        }
+            }
     },
 };
 
