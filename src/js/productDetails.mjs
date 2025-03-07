@@ -21,7 +21,7 @@ function addToCart() {
     if (!cartContents) {
       cartContents = [];
     }
-
+//TODO: qty should be dynamic, based on value from form
     cartContents.push(product);
     setLocalStorage("so-cart", cartContents);
 }

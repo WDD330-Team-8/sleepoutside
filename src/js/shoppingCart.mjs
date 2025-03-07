@@ -26,7 +26,7 @@ function cartItemTemplate(item) {
     <p class='cart-card__quantity'>qty: 1</p>
     <p class='cart-card__price'>$${item.FinalPrice}</p>
     </li>`;
-
+// TODO: qty should be dynamic based on amount of product is in cart, based on ID
     return newItem;
 }
 
