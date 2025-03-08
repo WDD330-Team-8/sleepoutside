@@ -30,6 +30,18 @@
 
         <p class="product__description" id="productDescriptionHtmlSimple"></p>
 
+        <!-- TODO: Add to cart by qty -->
+        <div class="product-detail__qty">
+          <button id="productQtyMinus" title="Remove amount">-</button>
+          <input
+            type="number"
+            name="productQty"
+            id="productQty"
+            value="1"
+            min="1"
+          />
+          <button id="productQtyPlus" title="Add amount">+</button>
+        </div>
         <div class="product-detail__add">
           <button id="addToCart" data-id="">Add to Cart</button>
         </div>

@@ -31,41 +31,40 @@ export function getParam(param) {
 }
 
 export function renderListWithTemplate(
-  parentElement, 
-  list, 
-  template, 
-  position = 'afterbegin', 
-  clear=true
-){
+  parentElement,
+  list,
+  template,
+  position = "afterbegin",
+  clear = true
+) {
   // console.log(list);
 
-  if(clear) {
-    parentElement.innerHTML = '';
+  if (clear) {
+    parentElement.innerHTML = "";
   }
 
   const htmlStrings = list.map(template);
-  parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
 export async function renderWithTemplate(
   templateFn,
-  parentElement, 
+  parentElement,
   data,
-  callback, 
-  position = 'afterbegin', 
-  clear=true
-){
-
-  if(clear) {
-    parentElement.innerHTML = '';
+  callback,
+  position = "afterbegin",
+  clear = true
+) {
+  if (clear) {
+    parentElement.innerHTML = "";
   }
   const htmlString = await templateFn(data);
   parentElement.insertAdjacentHTML(position, htmlString);
   if (callback) {
-    callback(data);  
+    callback(data);
   }
 }
 function loadTemplate(path) {
-  return async function(){
+  return async function () {
     const res = await fetch(path);
     if (res.ok) {
       const html = await res.text();
@@ -74,10 +73,10 @@ function loadTemplate(path) {
   };
 }
 export async function loadHeaderFooter() {
-  const headerTemplateFn = loadTemplate('/partials/header.html');
-  const footerTemplateFn = loadTemplate('/partials/footer.html');
-  const headerE1 = document.querySelector('#main-header');
-  const footerE1 = document.querySelector('#main-footer');
+  const headerTemplateFn = loadTemplate("/partials/header.html");
+  const footerTemplateFn = loadTemplate("/partials/footer.html");
+  const headerE1 = document.querySelector("#main-header");
+  const footerE1 = document.querySelector("#main-footer");
   await renderWithTemplate(headerTemplateFn, headerE1);
   await renderWithTemplate(footerTemplateFn, footerE1);
   cartSuperscript(); // render cart count
@@ -86,15 +85,21 @@ export async function loadHeaderFooter() {
 async function cartSuperscript() {
   const cartItems = await getLocalStorage("so-cart");
   const cartE1 = document.querySelector(".cart");
-  let countEl = document.createElement("p");
-  countEl.id = ("cart-count");
+  let countEl = document.createElement("a");
+  countEl.id = "cart-count";
+  countEl.href = "/cart/index.html";
 
   if (cartItems == null) {
     countEl.style.display = "none";
   } else {
-    countEl.textContent = cartItems.length;
+    const count = cartItems.reduce((total, item) => total + item.Quantity, 0);
+    if (count >= 99) {
+      countEl.textContent = "99+";
+    } else {
+      countEl.textContent = count;
+    }
   }
-  
+
   countEl.tabIndex = 0;
 
   cartE1.prepend(countEl);
