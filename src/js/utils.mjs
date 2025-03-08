@@ -85,14 +85,19 @@ export async function loadHeaderFooter() {
 async function cartSuperscript() {
   const cartItems = await getLocalStorage("so-cart");
   const cartE1 = document.querySelector(".cart");
-  let countEl = document.createElement("p");
+  let countEl = document.createElement("a");
   countEl.id = "cart-count";
+  countEl.href = "/cart/index.html";
 
   if (cartItems == null) {
     countEl.style.display = "none";
   } else {
     const count = cartItems.reduce((total, item) => total + item.Quantity, 0);
-    countEl.textContent = count;
+    if (count >= 99) {
+      countEl.textContent = "99+";
+    } else {
+      countEl.textContent = count;
+    }
   }
 
   countEl.tabIndex = 0;

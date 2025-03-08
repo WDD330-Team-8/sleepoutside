@@ -45,11 +45,11 @@ function renderProductDetails() {
 }
 
 function setQuantity(product, cartItems) {
-  // TODO: qty should be dynamic based on value from form
+  const amountToAdd = parseInt(document.querySelector("#productQty").value);
 
   if (cartItems == null) {
     // if cart is empty
-    product.Quantity = 1; // set quantity to 1
+    product.Quantity = amountToAdd || 1; // set quantity to user input, default to 1
     cartItems.push(product);
     return;
   }
@@ -57,11 +57,11 @@ function setQuantity(product, cartItems) {
   const found = cartItems.find((cartItem) => cartItem.Id === product.Id); // find if item is already in cart
   if (found) {
     // if item is already in cart
-    product.Quantity += 1; // increment quantity by 1
+    product.Quantity += amountToAdd || 1; // increment quantity by user input amount, default to 1
     cartItems.splice(cartItems.indexOf(found), 1, product);
   } else {
     // if item is not in cart
-    product.Quantity = 1; // set quantity to 1
+    product.Quantity = amountToAdd || 1; // set quantity to user input, default to 1
     cartItems.push(product);
   }
 }
