@@ -1,22 +1,20 @@
-import { getProductsByCategory } from './externalServices.mjs';
-import { renderListWithTemplate } from './utils.mjs';
-
+import { getProductsByCategory } from "./externalServices.mjs";
+import { renderListWithTemplate } from "./utils.mjs";
 
 export default async function productList(category, selector) {
-    let data = await getProductsByCategory(category);
-    const el = document.querySelector(selector);
-    // console.log(data.length);
-    renderListWithTemplate(el, data, productCardTemplate);
-    document.querySelector(".title").innerHTML = category.charAt(0).toUpperCase() + category.slice(1);
+  let data = await getProductsByCategory(category);
+  const el = document.querySelector(selector);
+  // console.log(data.length);
+  renderListWithTemplate(el, data, productCardTemplate);
+  document.querySelector(".title").innerHTML =
+    category.charAt(0).toUpperCase() + category.slice(1);
 }
 
+function productCardTemplate(product) {
+  // console.log(product);
+  // console.log(product.Brand);
 
-
-function productCardTemplate (product) {
-    // console.log(product);
-    // console.log(product.Brand);
-
-    return `
+  return `
     <li class="product-card">
     <a href="/product_pages/index.html?product=${product.Id}">
       <img
@@ -30,4 +28,3 @@ function productCardTemplate (product) {
   </li>
 `;
 }
-
